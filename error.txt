@@ -1,0 +1,2 @@
+error: insufficient permission for adding an object to repository database .git/objects
+fatal: failed to write commit object

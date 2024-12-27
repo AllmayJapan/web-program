@@ -1,0 +1,9 @@
+dockerLogs.txt
+db/
+*.sock
+
+*.log
+*.temp
+
+dorectories.txt
+codeShare/nginx_conf.txt

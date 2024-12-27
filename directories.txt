@@ -1,0 +1,49 @@
+.
+├── Dockerfile
+├── codeShare
+│   └── nginx_conf.txt
+├── db
+│   ├── #ib_16384_0.dblwr
+│   ├── #ib_16384_1.dblwr
+│   ├── #innodb_redo  [error opening dir]
+│   ├── #innodb_temp  [error opening dir]
+│   ├── auto.cnf
+│   ├── binlog.000001
+│   ├── binlog.000002
+│   ├── binlog.000003
+│   ├── binlog.000004
+│   ├── binlog.index
+│   ├── ca-key.pem
+│   ├── ca.pem
+│   ├── client-cert.pem
+│   ├── client-key.pem
+│   ├── ib_buffer_pool
+│   ├── ibdata1
+│   ├── ibtmp1
+│   ├── my@002ddatabase  [error opening dir]
+│   ├── mysql  [error opening dir]
+│   ├── mysql.ibd
+│   ├── mysql.sock -> /var/run/mysqld/mysqld.sock
+│   ├── mysql_upgrade_history
+│   ├── performance_schema  [error opening dir]
+│   ├── private_key.pem
+│   ├── public_key.pem
+│   ├── server-cert.pem
+│   ├── server-key.pem
+│   ├── sys  [error opening dir]
+│   ├── undo_001
+│   └── undo_002
+├── directories.txt
+├── docker-compose.yml
+├── dockerLogs.txt
+├── html
+│   ├── index.html
+│   ├── script.js
+│   └── style.css
+├── nginx
+│   └── nginx.conf
+└── php
+    ├── dbManager.php
+    └── save_post.php
+
+12 directories, 35 files
