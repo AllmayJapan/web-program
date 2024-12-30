@@ -26,7 +26,7 @@
 次の手順でプロジェクトを起動できます:
 1. リポジトリクローンをクローン
    ```bash
-   git clone <repository-url>
+   git clone git@github.com:AllmayJapan/web-program.git
    ```
 2. プロジェクトディレクトリに移動
    ```bash
