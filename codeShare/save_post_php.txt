@@ -13,7 +13,7 @@ try {
     $stmt -> bindParam(':content', $content);
     $stmt -> execute();
 
-    echo json_encode(['success' => true, 'message' => '投稿が保存されました']);
+    echo json_decode(['success' => true, 'message' => '投稿が保存されました']);
 } catch (PDOException $e) {
 	echo json_encode(['success' => false, 'message' => 'エラー: ' . $e -> getMessage()]);
 }
