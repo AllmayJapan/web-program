@@ -10,6 +10,7 @@ try {
 
     $stmt = $pdo -> prepare("insert into posts (title, content) values (:title, :content)");
     $stmt -> bindParam(':title', $title);
-    //That's all for today. 12/26
+    $stmt -> bindParam(':content', $content);
+    $stmt -> execute();
 }
 ?>
