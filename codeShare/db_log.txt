@@ -1,0 +1,13 @@
+mysql-container  | 2024-12-30T06:19:18.389932Z 6 [Warning] [MY-010453] [Server] root@localhost is created with an empty password ! Please consider switching off the --initialize-insecure option.
+mysql-container  | 2024-12-30T06:19:56.873168Z 0 [Warning] [MY-010068] [Server] CA certificate ca.pem is self signed.
+mysql-container  | 2024-12-30T06:19:56.931586Z 0 [Warning] [MY-011810] [Server] Insecure configuration for --pid-file: Location '/var/run/mysqld' in the path is accessible to all OS users. Consider choosing a different directory.
+mysql-container  | Warning: Unable to load '/usr/share/zoneinfo/iso3166.tab' as time zone. Skipping it.
+mysql-container  | Warning: Unable to load '/usr/share/zoneinfo/leap-seconds.list' as time zone. Skipping it.
+mysql-container  | Warning: Unable to load '/usr/share/zoneinfo/leapseconds' as time zone. Skipping it.
+mysql-container  | Warning: Unable to load '/usr/share/zoneinfo/tzdata.zi' as time zone. Skipping it.
+mysql-container  | Warning: Unable to load '/usr/share/zoneinfo/zone.tab' as time zone. Skipping it.
+mysql-container  | Warning: Unable to load '/usr/share/zoneinfo/zone1970.tab' as time zone. Skipping it.
+mysql-container  | 2024-12-30T06:20:24.617642Z 0 [Warning] [MY-010068] [Server] CA certificate ca.pem is self signed.
+mysql-container  | 2024-12-30T06:20:24.679504Z 0 [Warning] [MY-011810] [Server] Insecure configuration for --pid-file: Location '/var/run/mysqld' in the path is accessible to all OS users. Consider choosing a different directory.
+mysql-container  | 2025-01-03T05:36:12.724315Z 0 [Warning] [MY-010068] [Server] CA certificate ca.pem is self signed.
+mysql-container  | 2025-01-03T05:36:12.808300Z 0 [Warning] [MY-011810] [Server] Insecure configuration for --pid-file: Location '/var/run/mysqld' in the path is accessible to all OS users. Consider choosing a different directory.
