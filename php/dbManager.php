@@ -1,7 +1,7 @@
 <?php
 function getDatabaseConnection(){
     $host = 'db';
-    $dbname = 'my-database';
+    $dbname = 'small_blog_db';
     $user = 'user';
     $password = 'user_password';
 
