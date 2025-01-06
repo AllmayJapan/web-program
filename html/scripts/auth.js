@@ -1,4 +1,4 @@
-document.getElementbyId('login-button').addEventListener('click', async () => {
+document.getElementById('login-button').addEventListener('click', async () => {
     const email = document.getElementById('login-email').value;
     const password = document.getElementById('login-password').value;
 

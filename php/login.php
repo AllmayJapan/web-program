@@ -8,11 +8,11 @@ try {
     $email = $data['email'];
     $password = $data['password'];
 
-    $stmt = $pdo -> prepare("select * from users where email = :email");
+    $stmt = $pdo -> prepare("SELECT * FROM users WHERE email = :email");
     $stmt -> bindParam(':email', $email);
     $stmt -> execute();
 
-    $user = $stmt -> fetch(PDO::fetch_assoc);
+    $user = $stmt -> fetch(PDO::FETCH_ASSOC);
 
     if ($user && password_verify($password, $user['password'])) {
         echo json_encode(['success' => true, 'message' => 'Login successful']);
