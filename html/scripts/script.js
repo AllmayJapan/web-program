@@ -3,6 +3,16 @@ const postTitle = document.getElementById('post-title');
 const postContent = document.getElementById('post-content');
 const postList = document.getElementById('post-list');
 
+async function checkAuth(){
+    const response = await fetch('/check_auth.php');
+    const result = await response.json();
+
+    if (!result.loggedIn) {
+        alert('Please log in to continue');
+        window.location.href = 'auth/';
+    }
+}
+
 async function savePost(title, content) {
 	try {
 		const response = await fetch('/save_post.php', {
@@ -23,36 +33,42 @@ async function savePost(title, content) {
 }
 
 async function fetchPosts() {
-	try {
-		const response = await fetch('/fetch_posts.php');
-		const posts = await response.json();
-		postList.innerHTML = '';
-		posts.forEach(post => {
-			const listItem = document.createElement('li');
-			listItem.className = 'post-item';
+    try {
+        const response = await fetch('/fetch_posts.php');
+        const posts = await response.json();
+        postList.innerHTML = ''; // リストをクリア
 
-			const postTitleElem = document.createElement('div');
-			postTitleElem.className = 'post-title';
-			postTitleElem.textContent = post.title;
+        if (Array.isArray(posts)) { // データが配列か確認
+            posts.forEach(post => {
+                const listItem = document.createElement('li');
+                listItem.className = 'post-item';
 
-			const postContentElem = document.createElement('div');
-			postContentElem.className = 'post-content';
-			postContentElem.textContent = post.content;
+                const postTitleElem = document.createElement('div');
+                postTitleElem.className = 'post-title';
+                postTitleElem.textContent = post.title;
 
-			const postMetaElem = document.createElement('div');
-			postMetaElem.className = 'post-meta';
-			postMetaElem.textContent = `投稿日時: ${post.created_at}`;
+                const postContentElem = document.createElement('div');
+                postContentElem.className = 'post-content';
+                postContentElem.textContent = post.content;
 
-			listItem.appendChild(postTitleElem);
-			listItem.appendChild(postContentElem);
-			listItem.appendChild(postMetaElem);
-			listItem.appendChild(listItem);
+                const postMetaElem = document.createElement('div');
+                postMetaElem.className = 'post-meta';
+                postMetaElem.textContent = `投稿日時: ${post.created_at}`;
 
-		});
-	} catch(error) {
-		alert('投稿一覧の取得に失敗しました: ' + error.message);
-	}
+                listItem.appendChild(postTitleElem);
+                listItem.appendChild(postContentElem);
+                listItem.appendChild(postMetaElem);
+
+                postList.appendChild(listItem); // 正しく追加
+            });
+        } else {
+            alert('投稿一覧のデータ形式が正しくありません');
+        }
+    } catch (error) {
+        alert('投稿一覧の取得に失敗しました: ' + error.message);
+    }
 }
+
 function getCurrentDateTime() {
     const now = new Date();
     const year = now.getFullYear();
@@ -100,4 +116,7 @@ postButton.addEventListener('click', () => {
     }
 });
 
-window.addEventListener('DOMContentLoaded', fetchPosts);
+window.addEventListener('DOMContentLoaded', () => {
+    checkAuth();
+    fetchPosts();
+});
