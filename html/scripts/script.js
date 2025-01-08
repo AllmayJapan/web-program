@@ -55,6 +55,17 @@ async function fetchPosts() {
                 postMetaElem.className = 'post-meta';
                 postMetaElem.textContent = `posted by: ${post.username} | sent by: ${post.created_at}`;
 
+                const userLink = document.createElement('a');
+                userLink.href = `/profile?user_id=${post.user_id}`;
+                userLink.textContent = `posted by: ${post.username}`;
+                userLink.className = 'user-link';
+
+                const postDate = document.createElement('span');
+                postDate.textContent = ` | posted: ${post.created_at}`;
+
+                postMetaElem.appendChild(userLink);
+                postMetaElem.appendChild(postDate);
+
                 listItem.appendChild(postTitleElem);
                 listItem.appendChild(postContentElem);
                 listItem.appendChild(postMetaElem);

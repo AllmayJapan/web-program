@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="view" contact="width=device-width" initial-scale="1.0">
+    <title>User profile</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="profile-container">
+        <h1>User Infomation</h1>
+        <div id="user-info">
+            <p>
+                <strong>Name:</strong>
+                <span id="username"></span>
+            </p>
+            <p>
+                <strong>Registered:</strong>
+                <span id="registration-date"></span>
+            </p>
+        </div>
+        <button onclick="goback()">Return</button>
+    </div>
+
+    <script src="/user_profile.js"></script>
+</body>
+</html>

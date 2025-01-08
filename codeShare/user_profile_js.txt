@@ -8,7 +8,7 @@ async function fetchUserProfile() {
     }
 
     try {
-        const response = await fetch(`/get_user_profile.php?user_id=${userId}`);
+        const response = await fetch('/get_user_profile.php?user_id=${userId}');
         const result = await response.json();
 
         if (result.success) {
