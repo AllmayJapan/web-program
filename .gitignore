@@ -4,6 +4,6 @@ db/
 
 *.log
 *.temp
-
+progress_report.md
 dorectories.txt
 codeShare/nginx_conf.txt
