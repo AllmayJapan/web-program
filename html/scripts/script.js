@@ -53,7 +53,7 @@ async function fetchPosts() {
 
                 const postMetaElem = document.createElement('div');
                 postMetaElem.className = 'post-meta';
-                postMetaElem.textContent = `投稿日時: ${post.created_at}`;
+                postMetaElem.textContent = `posted by: ${post.username} | sent by: ${post.created_at}`;
 
                 listItem.appendChild(postTitleElem);
                 listItem.appendChild(postContentElem);
