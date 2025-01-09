@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once 'dbManager.php';
 
 try {
@@ -14,6 +15,9 @@ try {
     $stmt -> bindParam(':email', $email);
     $stmt -> bindParam(':password', $password);
     $stmt -> execute();
+
+    $user_id = $pdo -> lastInsertId();
+    $_SESSION['user_id'] = $user_id;
 
     echo json_encode(['success' => true, 'message' => 'Registration successful']);
 } catch (PDOException $e) {

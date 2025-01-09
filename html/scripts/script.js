@@ -15,12 +15,21 @@ async function checkAuth(){
 
 async function savePost(title, content) {
 	try {
-		const response = await fetch('/save_post.php', {
+		const response = await fetch('/check_auth.php');
+        const authResult = await response.json();
+
+        if(!authResult.loggedIn) {
+            alert('Please log in to continue');
+            window.location.href = '/auth/';
+            return;
+        }
+        const responsePost = await fetch('/save_post.php', {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({ title, content })
-		});
-		const result = await response.json();
+        });
+
+		const result = await responsePost.json();
 		if (result.success) {
 			alert(result.message);
 			fetchPosts();

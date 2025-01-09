@@ -6,8 +6,8 @@ try {
     $pdo = getDatabaseConnection();
 
     $data = json_decode(file_get_contents('php://input'), true);
-    $email = $data['emailInput'];
-    $password = $data['passwordInput'];
+    $email = $data['email'];
+    $password = $data['password'];
 
     $stmt = $pdo -> prepare("SELECT * FROM users WHERE email = :email");
     $stmt -> bindParam(':email', $email);
