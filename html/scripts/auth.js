@@ -1,3 +1,12 @@
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('login-email').value = '';
+    document.getElementById('login-password').value = '';
+
+    document.getElementById('register-username').value = '';
+    document.getElementById('register-email').value = '';
+    document.getElementById('register-password').value = '';
+})
+
 document.getElementById('login-button').addEventListener('click', async () => {
     const email = document.getElementById('login-email').value;
     const password = document.getElementById('login-password').value;
@@ -28,4 +37,8 @@ document.getElementById('register-button').addEventListener('click', async () =>
 
     const result = await response.json();
     alert(result.message);
+
+    if (result.success) {
+        window.location.href = '/';
+    }
 });
