@@ -14,6 +14,33 @@ async function fetchUserProfile() {
         if (result.success) {
             document.getElementById('username').textContent = result.user.username;
             document.getElementById('registration-date').textContent = result.user.registration_date;
+
+            const postsContainer = document.getElementById('user-posts');
+            postsContainer.innerHTML = '';
+
+            result.posts.forEach(post => {
+                const listItem = document.createElement('li');
+                listItem.className = 'post-item';
+
+                
+                const titleElem = document.createElement('div');
+                titleElem.className = 'post-title';
+                titleElem.textContent = post.title;
+
+                const contentElem = document.createElement('div');
+                contentElem.className = 'post-content';
+                contentElem.textContent = post.content;
+
+                const metaElem = document.createElement('div');
+                metaElem.className = 'post-meta';
+                metaElem.textContent = `Posted on: ${post.created_at}`;
+
+                listItem.appendChild(titleElem);
+                listItem.appendChild(contentElem);
+                listItem.appendChild(metaElem);
+                postsContainer.appendChild(listItem);
+
+            });
         } else {
             alert('Failed to get User Infomation: ' + result.message);
         }
