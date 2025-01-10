@@ -13,6 +13,19 @@ async function checkAuth(){
     }
 }
 
+document.getElementById('logout-button').addEventListener('click', async () => {
+    try {
+        const response = await fetch('/logout.php');
+        if (response.ok) {
+            window.location.href = '/auth/';
+        }else {
+            alert('Logout failed. Please try again.');
+        }
+    } catch (error) {
+        alert('Error during logout: ' + error.message);
+    }
+});
+
 async function savePost(title, content) {
 	try {
 		const response = await fetch('/check_auth.php');
