@@ -35,14 +35,47 @@ async function fetchUserProfile() {
                 metaElem.className = 'post-meta';
                 metaElem.textContent = `Posted on: ${post.created_at}`;
 
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = 'Delete';
+                deleteButton.className = 'delete-button';
+                deleteButton.addEventListener('click', () => deletePost(post.post_id));
+
                 listItem.appendChild(titleElem);
                 listItem.appendChild(contentElem);
                 listItem.appendChild(metaElem);
+                listItem.appendChild(deleteButton);
                 postsContainer.appendChild(listItem);
 
             });
         } else {
             alert('Failed to get User Infomation: ' + result.message);
+        }
+    } catch (error) {
+        alert('Error: ' + error.message);
+    }
+}
+
+async function deletePost(postId) {
+    if (!postId) {
+        alert('Invalid post ID.');
+        return;
+    }
+    if (!confirm('Are you sure you want to delete this post?')) return;
+
+    try {
+        const response = await fetch('/delete_post.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: `post_id=${postId}`
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+            alert(result.message);
+            fetchPosts();
+        } else {
+            alert('Error: ' + result.message);
         }
     } catch (error) {
         alert('Error: ' + error.message);
