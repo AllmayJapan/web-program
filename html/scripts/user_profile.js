@@ -3,7 +3,7 @@ async function fetchUserProfile() {
     const userId = params.get('user_id');
     
     if (!userId) {
-        alert('User ID is missiong.');
+        alert('User ID is missing.');
         return;
     }
 
@@ -18,6 +18,7 @@ async function fetchUserProfile() {
             const postsContainer = document.getElementById('user-posts');
             postsContainer.innerHTML = '';
 
+            const currentUserId = result.current_user_id;
             result.posts.forEach(post => {
                 const listItem = document.createElement('li');
                 listItem.className = 'post-item';
@@ -35,15 +36,18 @@ async function fetchUserProfile() {
                 metaElem.className = 'post-meta';
                 metaElem.textContent = `Posted on: ${post.created_at}`;
 
-                const deleteButton = document.createElement('button');
-                deleteButton.textContent = 'Delete';
-                deleteButton.className = 'delete-button';
-                deleteButton.addEventListener('click', () => deletePost(post.post_id));
+                if (currentUserId === post.user_id) {
+                    const deleteButton = document.createElement('button');
+                    deleteButton.textContent = 'Delete';
+                    deleteButton.className = 'delete-button';
+                    deleteButton.addEventListener('click', () => deletePost(post.post_id));
+
+                    listItem.appendChild(deleteButton);
+                }
 
                 listItem.appendChild(titleElem);
                 listItem.appendChild(contentElem);
                 listItem.appendChild(metaElem);
-                listItem.appendChild(deleteButton);
                 postsContainer.appendChild(listItem);
 
             });

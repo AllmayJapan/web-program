@@ -56,6 +56,10 @@ async function fetchUserProfile() {
 }
 
 async function deletePost(postId) {
+    if (!postId) {
+        alert('Invalid post ID.');
+        return;
+    }
     if (!confirm('Are you sure you want to delete this post?')) return;
 
     try {
@@ -69,7 +73,7 @@ async function deletePost(postId) {
 
         if (result.success) {
             alert(result.message);
-            fetchUserProfile();
+            fetchPosts();
         } else {
             alert('Error: ' + result.message);
         }

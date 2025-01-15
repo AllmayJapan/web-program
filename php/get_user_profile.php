@@ -1,35 +1,36 @@
 <?php
+session_start();
 require_once 'dbManager.php';
 
-try {
-    $pdo = getDatabaseConnection();
+$db = getDatabaseConnection();
 
-    $user_id = isset($_GET['user_id']) ? $_GET['user_id'] : null;
+if (!isset($_GET['user_id'])) {
+    echo json_encode(['success' => false, 'message' => 'User ID is required']);
+    exit;
+}
 
-    if (!$user_id) {
-        echo json_encode(['success' => false, 'message' => 'User ID is missing.']);
-        exit;
-    }
+$userId = $_GET['user_id'];
+$currentUserId = $_SESSION['user_id'] ?? null; // ログイン中のユーザーID
 
-    $stmtUser = $pdo->prepare("SELECT username, created_at AS registration_date FROM users WHERE user_id = :user_id");
-    $stmtUser->bindParam(':user_id', $user_id);
-    $stmtUser->execute();
+$stmt = $db->prepare('SELECT * FROM users WHERE user_id = :userId');
+$stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
+$stmt->execute();
+$user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    $user = $stmtUser->fetch(PDO::FETCH_ASSOC);
+if ($user) {
+    $postsStmt = $db->prepare('SELECT * FROM posts WHERE user_id = :userId');
+    $postsStmt->bindParam(':userId', $userId, PDO::PARAM_INT);
+    $postsStmt->execute();
+    $posts = $postsStmt->fetchAll(PDO::FETCH_ASSOC);
 
-    if (!$user) {
-        echo json_encode(['success' => false, 'message' => 'User not found.']);
-        exit;
-    }
-
-    $stmtPosts = $pdo -> prepare("SELECT title, content, created_at FROM posts WHERE user_id = :user_id ORDER BY created_at DESC");
-    $stmtPosts -> bindParam(':user_id', $user_id);
-    $stmtPosts -> execute();
-    $posts = $stmtPosts -> fetchAll(PDO::FETCH_ASSOC);
-
-    echo json_encode(['success' => true, 'user' => $user, 'posts' => $posts]);
-} catch (PDOException $e) {
-    echo json_encode(['success' => false, 'message' => 'Error: ' . $e->getMessage()]);
+    echo json_encode([
+        'success' => true,
+        'user' => $user,
+        'posts' => $posts,
+        'current_user_id' => $currentUserId
+    ]);
+} else {
+    echo json_encode(['success' => false, 'message' => 'User not found']);
 }
 ?>
 

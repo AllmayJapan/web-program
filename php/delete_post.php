@@ -1,29 +1,24 @@
 <?php
 session_start();
 require_once 'dbManager.php';
+$db = getDatabaseConnection();
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $postId = $_POST['post_id'] ?? null;
+    $currentUserId = $_session['user_id'] ?? null;
 
-try {
-    $pdo = getDatabaseConnection();
-
-    $post_id = isset($_POST['post_id']) ? $_POST['post_id'] : null;
-    $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
-
-    if (!$post_id || !$user_id) {
-        echo json_encode(['success' => false, 'message' => 'Missing post ID or user authentication.']);
+    if (!$postId || $currentUserId) {
+        echo json_encode(['success' => false, 'message' => 'Invalid request']);
         exit;
     }
 
-    $stmt = $pdo -> prepare("DELETE FROM posts WHERE post_id = :post_id and user_id = :user_id");
-    $stmt -> bindParam(':post_id', $post_id);
-    $stmt -> bindParam(':user_id', $user_id);
-    $stmt -> execute();
+    $stmt = $db -> prepare('delete from posts where post_id = :postId AND user_id = :userId');
+    $stmt -> bindParam(':postId', $postId, PDO::PARAM_INT);
+    $stmt -> bindParam(':userId', $currentUserId, PDO::PARAM_INT);
 
-    if ($stmt -> rowCount() > 0) {
-        echo json_encode(['success' => true, 'message' => 'Post deleted successfully.']);
+    if ($stmt -> execute()) {
+        echo json_encode(['success' => true, 'message' => 'Post deleted successfully']);
     } else {
-        echo json_encode(['success' => false, 'message' => 'Post not found or permission denided.']);
+        echo json_encode(['success' => false, 'message' => 'Failed to delete post']);
     }
-} catch (PDOException $e) {
-        echo json_encode(['success' => false, 'message' => 'Error: ' . $e -> getMessage()]);
 }
 ?>
